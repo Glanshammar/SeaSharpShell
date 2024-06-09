@@ -8,7 +8,6 @@ class Program
         Dictionary<string, Action> commandActions = new Dictionary<string, Action>()
         {
             { "help", () => HelpCMD.ShowHelp() },
-            { "hello", () => Console.WriteLine("Hello World!") },
             { "age", () => AgeCMD.Age() },
             { "clear", () => Console.Clear() },
             { "quit", () => Environment.Exit(0) },
