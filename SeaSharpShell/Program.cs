@@ -2,19 +2,19 @@
 
 class Program
 {
-    static Dictionary<string, Action> commandActions = new Dictionary<string, Action>()
-    {
-        { "help", () => ShowHelp() },
-        { "hello", () => Console.WriteLine("Hello World!") },
-        { "age", () => AgeCMD.Age() },
-        { "clear", () => Console.Clear() },
-        { "quit", () => Environment.Exit(0) },
-        { "exit", () => Environment.Exit(0) },
-    };
-
     static void Main(string[] args)
     {
         Console.Title = "SeaSharpShell";
+        Dictionary<string, Action> commandActions = new Dictionary<string, Action>()
+        {
+            { "help", () => HelpCMD.ShowHelp() },
+            { "hello", () => Console.WriteLine("Hello World!") },
+            { "age", () => AgeCMD.Age() },
+            { "clear", () => Console.Clear() },
+            { "quit", () => Environment.Exit(0) },
+            { "exit", () => Environment.Exit(0) },
+        };
+        
         bool running = true;
 
         while (running)
@@ -30,15 +30,6 @@ class Program
             {
                 Console.WriteLine("Unknown command. Type 'help' for available commands.");
             }
-        }
-    }
-
-    static void ShowHelp()
-    {
-        Console.WriteLine("Available commands:");
-        foreach (var command in commandActions.Keys)
-        {
-            Console.WriteLine(command);
         }
     }
 }
