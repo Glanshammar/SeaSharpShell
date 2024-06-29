@@ -45,38 +45,9 @@ class Program
                 }
                 else
                 {
-                    ExecuteSystemCommand(input); // Pass the entire input for system command execution
+                    Console.WriteLine("No such command exists. Use the help command to get a list.");
                 }
             }
-        }
-    }
-    
-    static void ExecuteSystemCommand(string command)
-    {
-        try
-        {
-            Process process = new Process();
-        
-            // Set the process start info
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.Arguments = command;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-        
-            // Start the process
-            process.Start();
-        
-            // Read the output
-            string output = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-        
-            // Display the output
-            Console.WriteLine(output);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred while executing the command: {ex.Message}");
         }
     }
 }
