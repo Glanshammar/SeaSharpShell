@@ -10,23 +10,42 @@ public class AgeCMD
 
         if (DateTime.TryParse(Console.ReadLine(), out dob))
         {
-            int age = CalculateAge(dob);
-            Console.WriteLine($"Your age is: {age} years.");
+            AgeResult age = CalculateAge(dob);
+            Console.WriteLine($"Your age is: {age.Years} years and {age.Days} days.");
         }
         else
         {
             Console.WriteLine("Invalid date format. Please enter your date of birth in YYYY-MM-DD format.");
         }
     }
-    
-    static int CalculateAge(DateTime dob)
+
+    static AgeResult CalculateAge(DateTime dob)
     {
         DateTime today = DateTime.Today;
-        int age = today.Year - dob.Year;
-        if (dob.Date > today.AddYears(-age))
+        int years = today.Year - dob.Year;
+
+        // Adjust years if birthday hasn't occurred yet this year
+        if (dob.Date > today.AddYears(-years))
         {
-            age--; // User hasn't had birthday yet this year
+            years--;
         }
-        return age;
+
+        // Calculate the number of days
+        DateTime lastBirthday = dob.AddYears(years);
+        int days = (today - lastBirthday).Days;
+
+        return new AgeResult(years, days);
+    }
+
+    public struct AgeResult
+    {
+        public int Years { get; }
+        public int Days { get; }
+
+        public AgeResult(int years, int days)
+        {
+            Years = years;
+            Days = days;
+        }
     }
 }
