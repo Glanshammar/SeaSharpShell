@@ -4,6 +4,7 @@ using System.Diagnostics;
 class Program
 {
     delegate void CommandAction(params string[] args);
+    
     static void Main(string[] args)
     {
         Console.Title = "SeaSharpShell";

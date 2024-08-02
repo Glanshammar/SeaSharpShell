@@ -63,13 +63,20 @@ public class Filesystem
     
     public static void ChangeDirectory(params string[] args)
     {
-        if (args == null || args.Length == 0 || string.IsNullOrEmpty(args[0]))
+        if (args == null || args.Length == 0)
         {
-            Console.WriteLine($"No path provided. Staying in the current directory: {NormalizePath(currentDirectory)}");
+            Console.WriteLine($"No path provided. Staying in the current directory: {NormalizePath(_currentDirectory)}");
             return;
         }
 
-        string path = args[0];
+        // Join all arguments into a single path string
+        string path = string.Join(" ", args);
+
+        if (string.IsNullOrEmpty(path))
+        {
+            Console.WriteLine($"No path provided. Staying in the current directory: {NormalizePath(_currentDirectory)}");
+            return;
+        }
 
         if (!Path.IsPathRooted(path))
         {
@@ -81,7 +88,7 @@ public class Filesystem
             if (Directory.Exists(path))
             {
                 _currentDirectory = path;
-                Console.WriteLine($"Changed directory to: {currentDirectory}");
+                Console.WriteLine($"Changed directory to: {NormalizePath(_currentDirectory)}");
             }
             else
             {
