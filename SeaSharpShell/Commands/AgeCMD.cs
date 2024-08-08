@@ -4,19 +4,51 @@ public class AgeCMD
 {
     public static void Age()
     {
-        Console.WriteLine("When are you born? (YYYY-MM-DD)");
+        Console.WriteLine("When were you born? (YYYY-MM-DD)");
         Console.Write("Date: ");
-        DateTime dob;
+        string input = Console.ReadLine()?.ToLower() ?? string.Empty;
 
-        if (DateTime.TryParse(Console.ReadLine(), out dob))
+        if (TryParseDate(input, out DateTime dob))
         {
             AgeResult age = CalculateAge(dob);
             Console.WriteLine($"Your age is: {age.Years} years and {age.Days} days.");
         }
         else
         {
-            Console.WriteLine("Invalid date format. Please enter your date of birth in YYYY-MM-DD format.");
+            Console.WriteLine("Invalid date format. Please enter your date of birth in YYYY-MM-DD or YYYYMMDD format.");
         }
+    }
+
+    static bool TryParseDate(string input, out DateTime dob)
+    {
+        // Try parsing standard format YYYY-MM-DD
+        if (DateTime.TryParseExact(input, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out dob))
+        {
+            return true;
+        }
+
+        // Try parsing numeric format YYYYMMDD
+        if (input.Length == 8 && int.TryParse(input, out int dateValue))
+        {
+            int year = dateValue / 10000;
+            int month = (dateValue % 10000) / 100;
+            int day = dateValue % 100;
+
+            // Construct a DateTime object and validate it
+            try
+            {
+                dob = new DateTime(year, month, day);
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                dob = default;
+                return false;
+            }
+        }
+
+        dob = default;
+        return false;
     }
 
     static AgeResult CalculateAge(DateTime dob)
