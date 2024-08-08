@@ -31,8 +31,8 @@ class Program
 
         while (true)
         {
-            Console.Write(Filesystem.currentDirectory + " >> ");
-            string input = Console.ReadLine().ToLower();
+            Console.Write(Filesystem.CurrentDirectory + " >> ");
+            string input = Console.ReadLine()?.ToLower() ?? string.Empty;
 
             if (!string.IsNullOrEmpty(input))
             {
