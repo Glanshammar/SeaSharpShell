@@ -1,5 +1,6 @@
 ﻿using SeaSharpShell.Commands;
 using System.Diagnostics;
+using SeaSharpShell;
 
 class Program
 {
@@ -31,7 +32,11 @@ class Program
 
         while (true)
         {
-            Console.Write(Filesystem.CurrentDirectory + " >> ");
+            Color.SetColor(Colors.CYAN);
+            Console.Write(Filesystem.CurrentDirectory);
+            Color.SetColor(Colors.GREEN);
+            Console.Write(" >> ");
+            Color.SetColor(Colors.DEFAULT);
             string input = Console.ReadLine()?.ToLower() ?? string.Empty;
 
             if (!string.IsNullOrEmpty(input))
