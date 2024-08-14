@@ -1,7 +1,7 @@
 ﻿namespace SeaSharpShell;
 
 
-public enum Color
+public enum Colors
 {
     DEFAULT,
     RED,
@@ -13,34 +13,34 @@ public enum Color
     WHITE
 }
 
-public static class ColorHelper
+public static class Color
 {
-    public static void SetColor(Color color)
+    public static void SetColor(Colors color)
     {
         switch (color)
         {
-            case Color.DEFAULT:
+            case Colors.DEFAULT:
                 Console.ResetColor();
                 break;
-            case Color.RED:
+            case Colors.RED:
                 Console.ForegroundColor = ConsoleColor.Red;
                 break;
-            case Color.GREEN:
+            case Colors.GREEN:
                 Console.ForegroundColor = ConsoleColor.Green;
                 break;
-            case Color.BLUE:
+            case Colors.BLUE:
                 Console.ForegroundColor = ConsoleColor.Blue;
                 break;
-            case Color.YELLOW:
+            case Colors.YELLOW:
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 break;
-            case Color.CYAN:
+            case Colors.CYAN:
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 break;
-            case Color.MAGENTA:
+            case Colors.MAGENTA:
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 break;
-            case Color.WHITE:
+            case Colors.WHITE:
                 Console.ForegroundColor = ConsoleColor.White;
                 break;
         }

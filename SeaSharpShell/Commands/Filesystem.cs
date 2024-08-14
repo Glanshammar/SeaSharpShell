@@ -42,15 +42,15 @@ namespace SeaSharpShell.Commands
             return path.Replace(Path.DirectorySeparatorChar == '/' ? '\\' : '/', Path.DirectorySeparatorChar);
         }
 
-        static void Print(Color color, params string[] messages)
+        static void Print(Colors color, params string[] messages)
         {
-            ColorHelper.SetColor(color);
+            Color.SetColor(color);
             foreach (var message in messages)
             {
                 Console.Write(message);
             }
             Console.WriteLine();
-            ColorHelper.SetColor(Color.DEFAULT);
+            Color.SetColor(Colors.DEFAULT);
         }
 
         public static void ListFiles()
@@ -71,21 +71,21 @@ namespace SeaSharpShell.Commands
                 {
                     if (Directory.Exists(entry))
                     {
-                        ColorHelper.SetColor(Color.GREEN);
+                        Color.SetColor(Colors.GREEN);
                     }
                     else if (File.Exists(entry))
                     {
-                        ColorHelper.SetColor(Color.YELLOW);
+                        Color.SetColor(Colors.YELLOW);
                     }
                     Console.WriteLine(Path.GetFileName(entry));
                 }
             }
             catch (UnauthorizedAccessException e)
             {
-                Print(Color.RED, "Error accessing directory: ", e.Message);
+                Print(Colors.RED, "Error accessing directory: ", e.Message);
             }
 
-            ColorHelper.SetColor(Color.DEFAULT);
+            Color.SetColor(Colors.DEFAULT);
         }
 
         public static void ChangeDirectory(params string[] args)
