@@ -105,6 +105,21 @@ namespace SeaSharpShell.Commands
                 return;
             }
 
+            if (path == "..")
+            {
+                DirectoryInfo? parent = Directory.GetParent(_currentDirectory);
+                if (parent != null)
+                {
+                    CurrentDirectory = parent.FullName;
+                    Console.WriteLine($"Changed directory to: {NormalizePath(_currentDirectory)}");
+                }
+                else
+                {
+                    Console.WriteLine("Already at the root directory.");
+                }
+                return;
+            }
+
             if (!Path.IsPathRooted(path))
             {
                 path = Path.Combine(_currentDirectory, path);
