@@ -90,7 +90,7 @@ namespace SeaSharpShell.Commands
 
         public static void ChangeDirectory(params string[] args)
         {
-            if (args == null || args.Length == 0)
+            if (args.Length == 0)
             {
                 Console.WriteLine($"No path provided. Staying in the current directory: {NormalizePath(_currentDirectory)}");
                 return;

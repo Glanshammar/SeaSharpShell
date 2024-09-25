@@ -9,6 +9,7 @@ class Program
     static void Main(string[] args)
     {
         Console.Title = "SeaSharpShell";
+        
         Dictionary<string, CommandAction> commandActions = new Dictionary<string, CommandAction>()
         {
             { "help", (args) => HelpCMD.ShowHelp() },
