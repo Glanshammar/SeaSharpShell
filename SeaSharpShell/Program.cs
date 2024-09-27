@@ -1,6 +1,4 @@
-﻿using SeaSharpShell.Commands;
-using System.Diagnostics;
-using SeaSharpShell;
+﻿using SeaSharpShell;
 
 class Program
 {

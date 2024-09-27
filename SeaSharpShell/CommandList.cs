@@ -1,5 +1,4 @@
 ﻿namespace SeaSharpShell;
-using SeaSharpShell.Commands;
 
 public class CommandList
 {
