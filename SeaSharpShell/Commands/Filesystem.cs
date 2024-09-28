@@ -270,15 +270,26 @@ public class Filesystem
             return;
         }
 
-        string file = args[0];
-        if (File.Exists(file))
+        string fileName = args[0];
+        string fullPath = Path.GetFullPath(Path.Combine(CurrentDirectory, fileName));
+
+        if (File.Exists(fullPath))
         {
-            string content = File.ReadAllText(file);
-            Console.WriteLine(content);
+            string content = File.ReadAllText(fullPath);
+        
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                Console.WriteLine($"The file '{fileName}' is empty.");
+            }
+            else
+            {
+                Console.WriteLine($"Contents of '{fileName}':");
+                Console.WriteLine(content);
+            }
         }
         else
         {
-            Console.WriteLine("File does not exist.");
+            Console.WriteLine($"File does not exist: {fullPath}");
         }
     }
 
