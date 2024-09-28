@@ -14,7 +14,7 @@ class Program
             Color.SetColor(Colors.GREEN);
             Console.Write(" >> ");
             Color.SetColor(Colors.DEFAULT);
-            string input = Console.ReadLine()?.ToLower() ?? string.Empty;
+            string input = Console.ReadLine()?.Trim() ?? string.Empty;
 
             if (!string.IsNullOrEmpty(input))
             {
