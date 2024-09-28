@@ -45,7 +45,11 @@ public class Filesystem
         {
             string path = CurrentDirectory;
 
-            var entries = Directory.GetFileSystemEntries(path);
+            var entries = Directory.GetFileSystemEntries(path, "*", new EnumerationOptions
+            {
+                AttributesToSkip = FileAttributes.System,
+                ReturnSpecialDirectories = false
+            });
 
             if (entries.Length == 0)
             {
@@ -55,15 +59,14 @@ public class Filesystem
 
             foreach (var entry in entries)
             {
-                if (Directory.Exists(entry))
-                {
+                FileAttributes attr = File.GetAttributes(entry);
+
+                if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
                     Color.SetColor(Colors.GREEN);
-                }
-                else if (File.Exists(entry))
-                {
+                else
                     Color.SetColor(Colors.YELLOW);
-                }
-                Console.WriteLine(Path.GetFileName(entry));
+
+                Console.WriteLine($"{Path.GetFileName(entry)} {(attr.HasFlag(FileAttributes.Hidden) ? "(Hidden)" : "")}");
             }
         }
         catch (UnauthorizedAccessException e)
