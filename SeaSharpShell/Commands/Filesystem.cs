@@ -292,4 +292,43 @@ public class Filesystem
             Console.WriteLine("File already exists.");
         }
     }
+    
+    public static void OpenFile(params string[] args)
+    {
+        if (args.Length == 0 || string.IsNullOrEmpty(args[0]))
+        {
+            Console.WriteLine("No file name provided.");
+            return;
+        }
+
+        string fileName = args[0];
+        string fullPath = Path.GetFullPath(Path.Combine(CurrentDirectory, fileName));
+
+        if (!File.Exists(fullPath))
+        {
+            Console.WriteLine($"File does not exist: {fullPath}");
+            return;
+        }
+
+        try
+        {
+            // This will open the file with the default associated application
+            var psi = new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = fullPath,
+                UseShellExecute = true
+            };
+            System.Diagnostics.Process.Start(psi);
+
+            Console.WriteLine($"Opened file : {fullPath}");
+        }
+        catch (System.ComponentModel.Win32Exception) // Win32Exception is cross-platform
+        {
+            Console.WriteLine($"No application is associated with this file type: {Path.GetExtension(fullPath)}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error opening file: {ex.Message}");
+        }
+    }
 }

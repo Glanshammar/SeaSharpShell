@@ -14,6 +14,7 @@ public class CommandList
         { "rmdir", (args) => Filesystem.DeleteDirectory(args) },
         { "touch", (args) => Filesystem.CreateFile(args) },
         { "read", (args) => Filesystem.ReadFile(args) },
+        { "open", (args) => Filesystem.OpenFile(args) },
         { "rename", (args) => Filesystem.RenameFile(args) },
         { "mv", (args) => Filesystem.MoveFile(args) },
         { "cp", (args) => Filesystem.CopyFile(args) },
