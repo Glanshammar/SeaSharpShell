@@ -160,14 +160,17 @@ public class Filesystem
             Console.WriteLine("No directory name provided.");
             return;
         }
-        string path = args[0];
-        if (Directory.Exists(path))
+        string directoryName = args[0];
+        string fullPath = Path.GetFullPath(Path.Combine(CurrentDirectory, directoryName));
+    
+        if (Directory.Exists(fullPath))
         {
-            Directory.Delete(path, true);
+            Directory.Delete(fullPath, true);
+            Console.WriteLine("Directory removed: " + fullPath);
         }
         else
         {
-            Console.WriteLine("Directory does not exist.");
+            Console.WriteLine("Directory does not exist: " + fullPath);
         }
     }
 
