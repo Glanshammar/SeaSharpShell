@@ -2,31 +2,20 @@
 
 public class Filesystem
 {
+    private static bool LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+    private static bool MACOS = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+    private static bool WINDOWS = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     private static string _currentDirectory = GetDefaultDirectory();
 
     
     private static string GetDefaultDirectory()
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            // On Windows, return the C: drive root
+        if (WINDOWS)
             return @"C:\";
-        }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            // On Linux, return the home directory
+        else if (LINUX || MACOS)
             return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            // On macOS, return the home directory
-            return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        }
         else
-        {
-            // For other platforms or unknown OS, return a default path or throw an exception
             throw new NotSupportedException("Unsupported OS platform.");
-        }
     }
     
     public static string CurrentDirectory
