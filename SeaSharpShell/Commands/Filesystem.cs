@@ -301,17 +301,39 @@ public class Filesystem
             return;
         }
 
-        string file = args[0];
-        if (!File.Exists(file))
+        string fileName = args[0];
+        string fullPath = Path.GetFullPath(Path.Combine(CurrentDirectory, fileName));
+
+        try
         {
-            using (var fs = File.Create(file))
+            if (!File.Exists(fullPath))
             {
-                // Ensure the file is closed immediately after creation
+                using (File.Create(fullPath))
+                {
+                    // File is automatically closed after creation
+                }
+                Console.WriteLine($"File created successfully: {fileName}");
+            }
+            else
+            {
+                Console.WriteLine($"File already exists: {fullPath}");
             }
         }
-        else
+        catch (UnauthorizedAccessException)
         {
-            Console.WriteLine("File already exists.");
+            Console.WriteLine($"Error: Access denied. Unable to create file: {fullPath}");
+        }
+        catch (DirectoryNotFoundException)
+        {
+            Console.WriteLine($"Error: The specified path is invalid: {fullPath}");
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"Error creating file: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An unexpected error occurred while creating the file: {ex.Message}");
         }
     }
     
