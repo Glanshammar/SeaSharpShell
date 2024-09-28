@@ -181,14 +181,17 @@ public class Filesystem
             Console.WriteLine("No file name provided.");
             return;
         }
-        string path = args[0];
-        if (File.Exists(path))
+        string fileName = args[0];
+        string fullPath = Path.GetFullPath(Path.Combine(CurrentDirectory, fileName));
+    
+        if (File.Exists(fullPath))
         {
-            File.Delete(path);
+            File.Delete(fullPath);
+            Console.WriteLine("File deleted: " + fullPath);
         }
         else
         {
-            Console.WriteLine("File does not exist.");
+            Console.WriteLine("File does not exist: " + fullPath);
         }
     }
 
