@@ -33,9 +33,8 @@ public class Filesystem
     {
         Color.SetColor(color);
         foreach (var message in messages)
-        {
             Console.Write(message);
-        }
+        
         Console.WriteLine();
         Color.SetColor(Colors.DEFAULT);
     }
