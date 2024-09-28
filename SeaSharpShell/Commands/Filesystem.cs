@@ -139,14 +139,17 @@ public class Filesystem
             Console.WriteLine("No directory name provided.");
             return;
         }
-        string path = args[0];
-        if (!Directory.Exists(path))
+        string directoryName = args[0];
+        string fullPath = Path.GetFullPath(Path.Combine(CurrentDirectory, directoryName));
+    
+        if (!Directory.Exists(fullPath))
         {
-            Directory.CreateDirectory(path);
+            Directory.CreateDirectory(fullPath);
+            Console.WriteLine("Directory created: " + fullPath);
         }
         else
         {
-            Console.WriteLine("Directory already exists.");
+            Console.WriteLine("Directory already exists: " + fullPath);
         }
     }
 
