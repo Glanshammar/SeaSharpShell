@@ -1,6 +1,5 @@
 ﻿namespace SeaSharpShell;
 
-
 public enum Colors
 {
     DEFAULT,
